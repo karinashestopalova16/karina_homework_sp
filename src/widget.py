@@ -14,3 +14,14 @@ def mask_account_card(card_or_account_number: str) -> str:
 
 
 print(mask_account_card("MasterCard 7158300734726758"))
+
+
+def get_date(date_to_change: str) -> str:
+    """Функция, которая возвращает дату в формате ДД.ММ.ГГГГ"""
+    date_parts = date_to_change.split("T")
+    date = date_parts[0]
+    final_date = ".".join(date.split("-")[::-1])
+
+    return final_date
+
+print(get_date("2026-08-28T02:26:18.671407"))
