@@ -1,5 +1,6 @@
 from src.masks import get_mask_account, get_mask_card_number
 
+
 def mask_account_card(card_or_account_number: str) -> str:
     """Функция, которая маскирует номер карты или счета"""
     parts = card_or_account_number.split()
@@ -10,5 +11,6 @@ def mask_account_card(card_or_account_number: str) -> str:
 
     else:
         return f"{' '.join(parts[:-1])} {get_mask_card_number(number_to_mask)}"
+
 
 print(mask_account_card("MasterCard 7158300734726758"))
