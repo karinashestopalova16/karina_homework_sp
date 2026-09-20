@@ -16,7 +16,6 @@ env/
 
 # Coverage
 .coverage
-htmlcov/
 
 # OS
 .DS_Store
