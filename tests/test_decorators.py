@@ -1,21 +1,26 @@
+from pathlib import Path
+
 import pytest
+
 from src.decorators import log
 
 
-def test_log_success(capsys):
+def test_log_success(capsys: pytest.CaptureFixture[str]) -> None:
     @log()
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         return x + y
+
     result = my_function(2, 4)
     assert result == 6
     captured = capsys.readouterr()
     assert "my_function ok" in captured.out
 
 
-def test_log_error(capsys):
+def test_log_error(capsys: pytest.CaptureFixture[str]) -> None:
     @log()
-    def divide_func(x, y):
+    def divide_func(x: int, y: int) -> float:
         return x / y
+
     with pytest.raises(ZeroDivisionError):
         divide_func(2, 0)
     captured = capsys.readouterr()
@@ -23,11 +28,13 @@ def test_log_error(capsys):
     assert "ZeroDivisionError" in captured.out
 
 
-def test_log_file(tmp_path):
+def test_log_file(tmp_path: Path) -> None:
     log_file = tmp_path / "test.log"
+
     @log(log_file)
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         return x + y
+
     result = my_function(2, 1)
     assert result == 3
     content = log_file.read_text(encoding="utf-8")
