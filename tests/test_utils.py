@@ -6,6 +6,7 @@ import pytest
 from src.utils import get_operations_from_json
 
 
+# Тест функции чтения JSON-файла при некорректной структуре json
 @pytest.mark.parametrize("data, expected", [("", []), ('{"state": }', [])])
 def test_get_operations_from_json_incorrect_file(data: str, expected: list[dict[str, Any]]) -> None:
     mocked_open = mock_open(read_data=data)
@@ -14,6 +15,7 @@ def test_get_operations_from_json_incorrect_file(data: str, expected: list[dict[
         assert get_operations_from_json("fake_path.json") == expected
 
 
+# Тест функции чтения JSON-файла при отсутсвии списка словарей
 def test_get_operations_from_json_invalid_structure() -> None:
     mocked_open = mock_open(read_data="33")
 
@@ -23,6 +25,7 @@ def test_get_operations_from_json_invalid_structure() -> None:
         mocked_open.assert_called_once_with("fake_path.json", encoding="utf-8")
 
 
+# Тест функции чтения JSON-файла при отсутствии файла по заданному пути
 def test_get_operations_from_json_file_not_found() -> None:
     mocked_open = Mock(side_effect=FileNotFoundError)
 
@@ -30,6 +33,7 @@ def test_get_operations_from_json_file_not_found() -> None:
         assert get_operations_from_json("fake_path.json") == []
 
 
+# Тест функции при успешном чтении JSON-файла
 def test_get_operations_from_json() -> None:
     mocked_open = mock_open(read_data='[{"state": "EXECUTED"}]')
 
