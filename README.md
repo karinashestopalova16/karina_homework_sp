@@ -21,6 +21,8 @@
 
 - **src/external_api.py** — функция для конвертации сумм транзакций в рубли с использованием внешнего API.
 
+- **src/file_readers.py** — функции для чтения банковских операций из CSV- и Excel-файлов. Возвращают данные в виде списка словарей.
+
 - **logs/** — папка для хранения журналов работы приложения.
 
 - **logs/masks.log** — журнал работы функций маскировки номеров карт и счетов.
@@ -192,6 +194,23 @@ from src.external_api import convert_transactions_to_rubles
 amount_in_rubles = convert_transactions_to_rubles(transaction)
 ```
 Для конвертации валют, отличных от RUB, необходимо указать действительный API-ключ в файле .env.
+
+
+Модуль `file_readers`
+
+Модуль содержит функции для чтения данных банковских операций из CSV- и Excel-файлов.
+
+Функция `read_csv_file` принимает путь к CSV-файлу и возвращает список словарей с данными операций. Для чтения CSV-файлов используется разделитель `;`.
+
+Функция `read_excel_file` принимает путь к Excel-файлу и возвращает список словарей с данными операций.
+
+Пример:
+```
+from src.file_readers import read_csv_file, read_excel_file
+
+csv_transactions = read_csv_file("transactions.csv")
+excel_transactions = read_excel_file("transactions_excel.xlsx")
+```
 
 ## Логирование
 
